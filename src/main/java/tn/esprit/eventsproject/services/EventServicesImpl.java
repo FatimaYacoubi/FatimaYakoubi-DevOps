@@ -33,6 +33,7 @@ public class EventServicesImpl implements IEventServices{
 
     @Override
     public Event addAffectEvenParticipant(Event event, int idParticipant) {
+
         Participant participant = participantRepository.findById(idParticipant).orElse(null);
         if(participant.getEvents() == null){
             Set<Event> events = new HashSet<>();
@@ -83,7 +84,7 @@ public class EventServicesImpl implements IEventServices{
         for (Event event:events){
             if(event.getLogistics().isEmpty()){
 
-                return null;
+                return new ArrayList<>();
             }
 
             else {

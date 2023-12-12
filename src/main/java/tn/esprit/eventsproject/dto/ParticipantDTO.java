@@ -1,0 +1,21 @@
+package tn.esprit.eventsproject.dto;
+
+import lombok.*;
+import tn.esprit.eventsproject.entities.Event;
+import tn.esprit.eventsproject.entities.Tache;
+
+import java.util.Set;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ParticipantDTO {
+    private int idPart;
+    private String nom;
+    private String prenom;
+    private Tache tache;
+    private Set<Event> events;
+
+}

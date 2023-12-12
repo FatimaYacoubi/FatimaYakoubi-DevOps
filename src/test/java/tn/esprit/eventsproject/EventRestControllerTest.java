@@ -6,6 +6,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tn.esprit.eventsproject.controllers.EventRestController;
+import tn.esprit.eventsproject.dto.EventDTO;
+import tn.esprit.eventsproject.dto.LogisticsDTO;
+import tn.esprit.eventsproject.dto.ParticipantDTO;
 import tn.esprit.eventsproject.entities.Event;
 import tn.esprit.eventsproject.entities.Logistics;
 import tn.esprit.eventsproject.entities.Participant;
@@ -27,42 +30,81 @@ class EventRestControllerTest {
 
     @Test
     void testAddParticipant() {
-        Participant participant = new Participant(); // create a participant object
+        ParticipantDTO participantDTO  = new ParticipantDTO(); // create a participant object
+
+        Participant participant = new Participant();
+        participant.setEvents(participantDTO.getEvents());
+        participant.setTache(participantDTO.getTache());
+        participant.setPrenom(participantDTO.getPrenom());
+        participant.setNom(participantDTO.getNom());
+        participant.setIdPart(participantDTO.getIdPart());
+
+
+
         when(eventServices.addParticipant(any())).thenReturn(participant);
 
-        Participant result = eventRestController.addParticipant(participant);
+        Participant result = eventRestController.addParticipant(participantDTO);
 
         assertEquals(participant, result);
     }
 
     @Test
     void testAddEventPart() {
-        Event event = new Event(); // create an event object
+        EventDTO eventDTO = new EventDTO(); // create an event object
+
+        Event event = new Event();
+        event.setIdEvent(eventDTO.getIdEvent());
+        event.setLogistics(eventDTO.getLogistics());
+        event.setCout(eventDTO.getCout());
+        event.setDescription(eventDTO.getDescription());
+        event.setDateFin(eventDTO.getDateFin());
+        event.setDateDebut(eventDTO.getDateDebut());
+        event.setParticipants(eventDTO.getParticipants());
+
         int idPart = 1;
         when(eventServices.addAffectEvenParticipant(any(), eq(idPart))).thenReturn(event);
 
-        Event result = eventRestController.addEventPart(event, idPart);
+        Event result = eventRestController.addEventPart(eventDTO, idPart);
 
         assertEquals(event, result);
     }
 
     @Test
     void testAddEvent() {
-        Event event = new Event(); // create an event object
+        EventDTO eventDTO = new EventDTO(); // create an event object
+
+
+
+        Event event = new Event();
+        event.setIdEvent(eventDTO.getIdEvent());
+        event.setLogistics(eventDTO.getLogistics());
+        event.setCout(eventDTO.getCout());
+        event.setDescription(eventDTO.getDescription());
+        event.setDateFin(eventDTO.getDateFin());
+        event.setDateDebut(eventDTO.getDateDebut());
+        event.setParticipants(eventDTO.getParticipants());
+
         when(eventServices.addAffectEvenParticipant(any())).thenReturn(event);
 
-        Event result = eventRestController.addEvent(event);
+
+        Event result = eventRestController.addEvent(eventDTO);
 
         assertEquals(event, result);
     }
     @Test
 
     void testAddAffectLog() {
-        Logistics logistics = new Logistics(); // create a logistics object
+        LogisticsDTO logisticsDTO = new LogisticsDTO(); // create a logistics object
+        Logistics logistics = new Logistics();
+        logistics.setIdLog(logisticsDTO.getIdLog());
+        logistics.setDescription(logisticsDTO.getDescription());
+        logistics.setQuantite(logisticsDTO.getQuantite());
+        logistics.setPrixUnit(logistics.getPrixUnit());
+        logistics.setReserve(logisticsDTO.isReserve());
         String descriptionEvent = "eventDescription";
         when(eventServices.addAffectLog(any(), eq(descriptionEvent))).thenReturn(logistics);
 
-        Logistics result = eventRestController.addAffectLog(logistics, descriptionEvent);
+        Logistics result = eventRestController.addAffectLog(logisticsDTO, descriptionEvent);
 
         assertEquals(logistics, result);
     }
