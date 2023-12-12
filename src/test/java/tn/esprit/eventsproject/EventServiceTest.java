@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import tn.esprit.eventsproject.config.PerformanceAspect;
 import tn.esprit.eventsproject.entities.*;
 import tn.esprit.eventsproject.repositories.EventRepository;
 import tn.esprit.eventsproject.repositories.LogisticsRepository;
@@ -27,6 +29,9 @@ class EventServicesImplTest {
     @Mock
     private EventRepository eventRepository;
 
+
+    @Autowired
+    private PerformanceAspect performanceAspect;
     @Mock
     private ParticipantRepository participantRepository;
 
@@ -47,7 +52,7 @@ class EventServicesImplTest {
         assertEquals(participant, savedParticipant);
     }
 
-  
+
 
     // Similar tests for other methods...
 
