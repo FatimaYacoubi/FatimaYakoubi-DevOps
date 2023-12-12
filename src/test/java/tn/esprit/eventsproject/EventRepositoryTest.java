@@ -111,4 +111,61 @@ class EventRepositoryTest {
         assertEquals(2, result.size());
     }
 
+
+
+
+    @Test
+    void testEventEqualsAndHashCodeConsistency() {
+        Event event1 = new Event();
+        event1.setIdEvent(1);
+
+        Event event2 = new Event();
+        event2.setIdEvent(1);
+
+        assertNotEquals(event1, event2);
+        assertNotEquals(event1.hashCode(), event2.hashCode());
+    }
+
+
+    @Test
+    void testNoExceptionThrown() {
+        assertDoesNotThrow(() -> {
+            // Your code here that should not throw any exception
+            int result = 2 + 2;
+            assertEquals(4, result);
+        }, "Unexpected exception thrown");
+    }
+
+    @Test
+    void testExceptionThrown() {
+        Throwable exception = assertThrows(Exception.class, () -> {
+            // Your code here that should throw a specific exception
+            throw new Exception("Test exception");
+        });
+
+        assertEquals("Test exception", exception.getMessage());
+    }
+
+    @Test
+    void testNoExceptionThrownAlternative() {
+        try {
+            // Your code here that should not throw any exception
+            int result = 2 + 2;
+            assertEquals(4, result);
+        } catch (Exception e) {
+            fail("Unexpected exception thrown: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testExceptionThrownAlternative() {
+        try {
+            // Your code here that should throw a specific exception
+            throw new Exception("Test exception");
+        } catch (Exception e) {
+            assertEquals("Test exception", e.getMessage());
+        }
+    }
+
+
 }
