@@ -4,3 +4,5 @@ services:
   devops:
     image: yacoubifatima098/eventsproject:latest
     restart: unless-stopped
+    ports:
+      - "8090:8090"
