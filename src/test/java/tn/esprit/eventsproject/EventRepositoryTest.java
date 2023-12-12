@@ -7,9 +7,13 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import tn.esprit.eventsproject.dto.EventDTO;
+import tn.esprit.eventsproject.dto.LogisticsDTO;
+import tn.esprit.eventsproject.dto.ParticipantDTO;
 import tn.esprit.eventsproject.entities.Event;
 import tn.esprit.eventsproject.entities.Logistics;
 import tn.esprit.eventsproject.entities.Participant;
+import tn.esprit.eventsproject.entities.Tache;
 import tn.esprit.eventsproject.repositories.EventRepository;
 
 import java.time.LocalDate;
@@ -165,6 +169,94 @@ class EventRepositoryTest {
         } catch (Exception e) {
             assertEquals("Test exception", e.getMessage());
         }
+    }
+
+    @Test
+    public void testEventEntity() {
+        // Create an Event object
+        Event event = new Event();
+        event.setIdEvent(1);
+        event.setDescription("Test Event");
+        event.setDateDebut(LocalDate.now());
+        event.setDateFin(LocalDate.now().plusDays(1));
+        event.setCout(100.0f);
+
+        // Test getters
+        assertEquals(1, event.getIdEvent());
+        assertEquals("Test Event", event.getDescription());
+        assertNotNull(event.getDateDebut());
+        assertNotNull(event.getDateFin());
+        assertEquals(100.0f, event.getCout());
+
+        // Test setters
+        event.setIdEvent(2);
+        assertEquals(2, event.getIdEvent());
+
+        // Test toString method
+        assertNotNull(event.toString());
+    }
+
+    @Test
+    public void testLogisticsEntity() {
+        // Create a Logistics object
+        Logistics logistics = new Logistics();
+        logistics.setIdLog(1);
+        logistics.setDescription("Test Logistics");
+        logistics.setReserve(true);
+        logistics.setPrixUnit(50.0f);
+        logistics.setQuantite(10);
+
+        // Test getters
+        assertEquals(1, logistics.getIdLog());
+        assertEquals("Test Logistics", logistics.getDescription());
+        assertEquals(true, logistics.isReserve());
+        assertEquals(50.0f, logistics.getPrixUnit());
+        assertEquals(10, logistics.getQuantite());
+
+        // Test setters
+        logistics.setIdLog(2);
+        assertEquals(2, logistics.getIdLog());
+
+        // Test toString method
+        assertNotNull(logistics.toString());
+    }
+
+    @Test
+    public void testParticipantEntity() {
+        // Create a Participant object
+        Participant participant = new Participant();
+        participant.setIdPart(1);
+        participant.setNom("John");
+        participant.setPrenom("Doe");
+        participant.setTache(Tache.INVITE);
+
+        // Test getters
+        assertEquals(1, participant.getIdPart());
+        assertEquals("John", participant.getNom());
+        assertEquals("Doe", participant.getPrenom());
+        assertEquals(Tache.INVITE, participant.getTache());
+
+        // Test setters
+        participant.setIdPart(2);
+        assertEquals(2, participant.getIdPart());
+
+        // Test toString method
+        assertNotNull(participant.toString());
+    }
+
+    @Test
+    public void testDTOs() {
+        // Create DTO objects
+        EventDTO eventDTO = new EventDTO();
+        LogisticsDTO logisticsDTO = new LogisticsDTO();
+        ParticipantDTO participantDTO = new ParticipantDTO();
+
+        // Test DTO getters and setters
+        // (Note: You can add more detailed tests based on your specific requirements)
+
+        assertNotNull(eventDTO.toString());
+        assertNotNull(logisticsDTO.toString());
+        assertNotNull(participantDTO.toString());
     }
 
 
