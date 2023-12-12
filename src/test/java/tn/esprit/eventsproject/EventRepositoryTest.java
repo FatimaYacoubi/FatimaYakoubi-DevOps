@@ -258,5 +258,96 @@ class EventRepositoryTest {
         assertNotNull(participantDTO.toString());
     }
 
+    @Test
+     void testEventEntityGettersAndSetters() {
+        Event event = new Event();
+        event.setIdEvent(1);
+        event.setDescription("Test Event");
+        event.setDateDebut(LocalDate.now());
+        event.setDateFin(LocalDate.now().plusDays(1));
+        event.setCout(100.0f);
+
+        assertEquals(1, event.getIdEvent());
+        assertEquals("Test Event", event.getDescription());
+        assertNotNull(event.getDateDebut());
+        assertNotNull(event.getDateFin());
+        assertEquals(100.0f, event.getCout());
+    }
+
+    // Getter and Setter Tests for Logistics Entity
+    @Test
+     void testLogisticsEntityGettersAndSetters() {
+        Logistics logistics = new Logistics();
+        logistics.setIdLog(1);
+        logistics.setDescription("Test Logistics");
+        logistics.setReserve(true);
+        logistics.setPrixUnit(50.0f);
+        logistics.setQuantite(10);
+
+        assertEquals(1, logistics.getIdLog());
+        assertEquals("Test Logistics", logistics.getDescription());
+        assertEquals(true, logistics.isReserve());
+        assertEquals(50.0f, logistics.getPrixUnit());
+        assertEquals(10, logistics.getQuantite());
+    }
+
+    // Getter and Setter Tests for Participant Entity
+    @Test
+     void testParticipantEntityGettersAndSetters() {
+        Participant participant = new Participant();
+        participant.setIdPart(1);
+        participant.setNom("John");
+        participant.setPrenom("Doe");
+        participant.setTache(Tache.INVITE);
+
+        assertEquals(1, participant.getIdPart());
+        assertEquals("John", participant.getNom());
+        assertEquals("Doe", participant.getPrenom());
+        assertEquals(Tache.INVITE, participant.getTache());
+    }
+
+    // Builder Tests for DTOs
+    @Test
+     void testDTOBuilders() {
+        EventDTO eventDTO = EventDTO.builder()
+                .idEvent(1)
+                .description("Test Event")
+                .dateDebut(LocalDate.now())
+                .dateFin(LocalDate.now().plusDays(1))
+                .cout(100.0f)
+                .build();
+
+        LogisticsDTO logisticsDTO = LogisticsDTO.builder()
+                .idLog(1)
+                .description("Test Logistics")
+                .reserve(true)
+                .prixUnit(50.0f)
+                .quantite(10)
+                .build();
+
+        ParticipantDTO participantDTO = ParticipantDTO.builder()
+                .idPart(1)
+                .nom("John")
+                .prenom("Doe")
+                .tache(Tache.INVITE)
+                .build();
+
+        assertEquals(1, eventDTO.getIdEvent());
+        assertEquals("Test Event", eventDTO.getDescription());
+        assertNotNull(eventDTO.getDateDebut());
+        assertNotNull(eventDTO.getDateFin());
+        assertEquals(100.0f, eventDTO.getCout());
+
+        assertEquals(1, logisticsDTO.getIdLog());
+        assertEquals("Test Logistics", logisticsDTO.getDescription());
+        assertEquals(true, logisticsDTO.isReserve());
+        assertEquals(50.0f, logisticsDTO.getPrixUnit());
+        assertEquals(10, logisticsDTO.getQuantite());
+
+        assertEquals(1, participantDTO.getIdPart());
+        assertEquals("John", participantDTO.getNom());
+        assertEquals("Doe", participantDTO.getPrenom());
+        assertEquals(Tache.INVITE, participantDTO.getTache());
+    }
 
 }
