@@ -83,4 +83,56 @@ class EventServicesImplTest {
 
         assertEquals(50.0f, event.getCout(), 0.01);
     }
+    @Test
+    void testGetLogisticsDates() {
+        LocalDate dateDebut = LocalDate.now().minusDays(1);
+        LocalDate dateFin = LocalDate.now().plusDays(1);
+
+        Event event = new Event();
+        Logistics logistics = new Logistics();
+        logistics.setReserve(true);
+        Set<Logistics> logisticsSet = new HashSet<>();
+        logisticsSet.add(logistics);
+        event.setLogistics(logisticsSet);
+
+        when(eventRepository.findByDateDebutBetween(dateDebut, dateFin)).thenReturn(List.of(event));
+
+        List<Logistics> logisticsList = eventServices.getLogisticsDates(dateDebut, dateFin);
+
+        assertNotNull(logisticsList);
+        assertFalse(logisticsList.isEmpty());
+        assertEquals(logistics, logisticsList.get(0));
+    }
+    @Test
+    void testAddAffectLog() {
+        Logistics logistics = new Logistics();
+        String descriptionEvent = "Test Event";
+
+        Event event = new Event();
+        when(eventRepository.findByDescription(descriptionEvent)).thenReturn(event);
+        when(logisticsRepository.save(any(Logistics.class))).thenReturn(logistics);
+
+        Logistics savedLogistics = eventServices.addAffectLog(logistics, descriptionEvent);
+
+        assertNotNull(savedLogistics);
+        assertTrue(event.getLogistics().contains(savedLogistics));
+    }
+    @Test
+    void testAddAffectEventParticipantBySet() {
+        Event event = new Event();
+        Set<Participant> participants = new HashSet<>();
+        Participant participant = new Participant();
+        participants.add(participant);
+        event.setParticipants(participants);
+
+        when(participantRepository.findById(participant.getIdPart())).thenReturn(Optional.of(participant));
+        when(eventRepository.save(any(Event.class))).thenReturn(event);
+
+        Event savedEvent = eventServices.addAffectEvenParticipant(event);
+
+        assertNotNull(savedEvent);
+        assertTrue(savedEvent.getParticipants().contains(participant));
+    }
+
+
 }
