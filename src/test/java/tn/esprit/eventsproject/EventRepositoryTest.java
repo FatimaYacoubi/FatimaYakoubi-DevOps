@@ -29,6 +29,7 @@ class EventRepositoryTest {
 
     @Autowired
     private EventRepository eventRepository;
+
     @Test
     void testEventCreation() {
         Event event = new Event();
@@ -116,8 +117,6 @@ class EventRepositoryTest {
     }
 
 
-
-
     @Test
     void testEventEqualsAndHashCodeConsistency() {
         Event event1 = new Event();
@@ -172,7 +171,7 @@ class EventRepositoryTest {
     }
 
     @Test
-    public void testEventEntity() {
+    void testEventEntity() {
         // Create an Event object
         Event event = new Event();
         event.setIdEvent(1);
@@ -197,7 +196,7 @@ class EventRepositoryTest {
     }
 
     @Test
-    public void testLogisticsEntity() {
+    void testLogisticsEntity() {
         // Create a Logistics object
         Logistics logistics = new Logistics();
         logistics.setIdLog(1);
@@ -222,7 +221,7 @@ class EventRepositoryTest {
     }
 
     @Test
-    public void testParticipantEntity() {
+    void testParticipantEntity() {
         // Create a Participant object
         Participant participant = new Participant();
         participant.setIdPart(1);
@@ -245,7 +244,7 @@ class EventRepositoryTest {
     }
 
     @Test
-    public void testDTOs() {
+    void testDTOs() {
         // Create DTO objects
         EventDTO eventDTO = new EventDTO();
         LogisticsDTO logisticsDTO = new LogisticsDTO();
